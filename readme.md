@@ -25,83 +25,102 @@ inside **\backend** folder
 (docker command) `docker-compose up`
 Check **docker-compose.yml** file
 
-# Application Page:
-### Hosted at Docker
-[http://localhost:7003/docs](http://localhost:7003/docs)
+### Add Model data from https://huggingface.co/yiyanghkust/finbert-tone/tree/main to workers/model/fine-tone
+
+[comment]: <> (# Application Page:)
+
+[comment]: <> (### Hosted at Docker)
+
+[comment]: <> ([http://localhost:7003/docs]&#40;http://localhost:7003/docs&#41;)
 
 
-### Dev
+[comment]: <> (### Dev)
 
 
-pip install -r requirements.txt
-pip list
+[comment]: <> (pip install -r requirements.txt)
+
+[comment]: <> (pip list)
 
 
 
-docker-compose build
-docker-compose up
-docker-compose up -d
+[comment]: <> (docker-compose build)
+
+[comment]: <> (docker-compose up)
+
+[comment]: <> (docker-compose up -d)
  
-for debug run
-python debug.py
+[comment]: <> (for debug run)
+
+[comment]: <> (python debug.py)
 
 
-Remove everything from docker
-https://stackoverflow.com/questions/44785585/how-to-delete-all-local-docker-images
-docker system prune -a --volumes
+[comment]: <> (Remove everything from docker)
+
+[comment]: <> (https://stackoverflow.com/questions/44785585/how-to-delete-all-local-docker-images)
+
+[comment]: <> (docker system prune -a --volumes)
 
 
-DB credentials:
+[comment]: <> (DB credentials:)
 
-    add new server
-    host name: db_campaign
-    port: 54320
-    db: postgres
-    user: admin
-    password: secret
+[comment]: <> (    add new server)
 
-API: 
-http://localhost:7003/docs
+[comment]: <> (    host name: db_campaign)
+
+[comment]: <> (    port: 54320)
+
+[comment]: <> (    db: postgres)
+
+[comment]: <> (    user: admin)
+
+[comment]: <> (    password: secret)
+
+[comment]: <> (API: )
+
+[comment]: <> (http://localhost:7003/docs)
 
 
-DB:
-pool_size and max_overflow https://stackoverflow.com/a/9999411
+[comment]: <> (DB:)
+
+[comment]: <> (pool_size and max_overflow https://stackoverflow.com/a/9999411)
 
 
-Update Db and insert master data:
-python run_db.py auto
-python run_db.py data
+[comment]: <> (Update Db and insert master data:)
 
-### The parsing of data and  loading of data to the database will happen while starting the fastapi server when "data_loader" table will have "true" status for "Movie Data Loading"
+[comment]: <> (python run_db.py auto)
 
-For manual upload of data with parsing run in docker terminal:
+[comment]: <> (python run_db.py data)
 
-python parse.py 
+[comment]: <> (### The parsing of data and  loading of data to the database will happen while starting the fastapi server when "data_loader" table will have "true" status for "Movie Data Loading")
 
-NB: ** manual parsing is not included optional "phrase 4", "phrase 4" only runs at startup.
+[comment]: <> (For manual upload of data with parsing run in docker terminal:)
 
-When the database is ready with the parsed data, "data_loader" table will have "false" status for "Movie Data Loading" so that the data parsing & loading never happens again.
+[comment]: <> (python parse.py )
 
-### Phrase 4 will run while starting the fastapi server when "data_loader" table will have "true" status for "Movie Rating Loading"
+[comment]: <> (NB: ** manual parsing is not included optional "phrase 4", "phrase 4" only runs at startup.)
 
-change the db value for enable/disable phrase 4. 
+[comment]: <> (When the database is ready with the parsed data, "data_loader" table will have "false" status for "Movie Data Loading" so that the data parsing & loading never happens again.)
 
-did not exposed an api for "data_loader" table's status change, because of maintaining exact api deliverables by the assignment requirements.
+[comment]: <> (### Phrase 4 will run while starting the fastapi server when "data_loader" table will have "true" status for "Movie Rating Loading")
 
-total number of movies found in third party csv that has been provided: 475
+[comment]: <> (change the db value for enable/disable phrase 4. )
 
-# API endpoints
+[comment]: <> (did not exposed an api for "data_loader" table's status change, because of maintaining exact api deliverables by the assignment requirements.)
 
-http://localhost:7003/movies?count={}&page={}
+[comment]: <> (total number of movies found in third party csv that has been provided: 475)
 
-http://localhost:7003/movie/{}
+[comment]: <> (# API endpoints)
 
-For Source Code for Data Parsing and Data Upload to database, see:
+[comment]: <> (http://localhost:7003/movies?count={}&page={})
 
-app/custom_classes/*
+[comment]: <> (http://localhost:7003/movie/{})
 
-Used Chain of Responsibility, Singletone, Repository.
+[comment]: <> (For Source Code for Data Parsing and Data Upload to database, see:)
 
-For API details please see: https://github.com/MahirMahbub/Wiki_Movies/blob/master/API%20Doc.pdf
+[comment]: <> (app/custom_classes/*)
+
+[comment]: <> (Used Chain of Responsibility, Singletone, Repository.)
+
+[comment]: <> (For API details please see: https://github.com/MahirMahbub/Wiki_Movies/blob/master/API%20Doc.pdf)
 
 

@@ -2,3 +2,9 @@ beautifulsoup4==4.9.0
 celery[redis]==4.4.0
 librosa==0.7.2
 numba==0.48.0
+fastapi_cache2==0.1.6
+transformers==4.10.0
+aioredis==2.0.0
+sentence-splitter==1.4
+torchsummary==1.5.1
+torchtext==0.10.0

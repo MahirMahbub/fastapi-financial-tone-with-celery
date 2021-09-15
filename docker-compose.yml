@@ -57,17 +57,17 @@ services:
     networks:
       - network
 
-  wiki_db_mutator:
-    build: .
-    container_name:  Db-Mutator
-    command: bash -c "python run_db.py auto"
-    volumes:
-      - .:/srv/financial_tone_backend
-    env_file: .env
-    depends_on:
-      - financial_tone_apps
-    networks:
-      - network
+#  db_mutator:
+#    build: .
+#    container_name:  Db-Mutator
+#    command: bash -c "python run_db.py auto"
+#    volumes:
+#      - .:/srv/financial_tone_backend
+#    env_file: .env
+#    depends_on:
+#      - financial_tone_apps
+#    networks:
+#      - network
 
   finbert_worker:
     build: ./workers

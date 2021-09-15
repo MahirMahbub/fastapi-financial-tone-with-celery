@@ -30,6 +30,8 @@ Check **docker-compose.yml** file
 
 ### Internet Connection is necessary
 
+### For sample output see sample_result.json
+
 [comment]: <> (# Application Page:)
 
 [comment]: <> (### Hosted at Docker)

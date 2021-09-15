@@ -1,0 +1,103 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:12.2
+    container_name:  Postgres
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 54320:5432
+    networks:
+      - network
+
+  broker:
+    container_name: celery-broker
+    image: rabbitmq:3.8.2-management-alpine
+    ports:
+      - 8080:15672
+      - 5672:5672
+    networks:
+      - network
+
+  result_backend:
+      container_name: celery-backend
+      image: redis:5.0.7
+      ports:
+        - 6379:6379
+      networks:
+        - network
+      command: redis-server --requirepass password
+
+  financial_tone_apps:
+    build: .
+    container_name:  financial-tone-apps
+    command: bash -c "uvicorn app.main:app --host 0.0.0.0 --port 7003 --reload"
+    volumes:
+      - .:/srv/financial_tone_backend
+    ports:
+      - 7003:7003
+    # depends_on:
+    #   - db
+    #   - broker
+    #   - result_backend
+    env_file: .env
+    environment:
+      - REDIS_HOST=result_backend
+      - RABBITMQ_HOST=broker
+    links:
+      - result_backend:result_backend
+      - broker:broker
+    networks:
+      - network
+
+  wiki_db_mutator:
+    build: .
+    container_name:  Db-Mutator
+    command: bash -c "python run_db.py auto"
+    volumes:
+      - .:/srv/financial_tone_backend
+    env_file: .env
+    depends_on:
+      - financial_tone_apps
+    networks:
+      - network
+
+  finbert_worker:
+    build: ./workers
+    container_name: celery-finbert-worker
+    environment:
+      - REDIS_HOST=result_backend
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - REDIS_PASS=password
+      - RABBITMQ_HOST=broker
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+    links:
+      - result_backend:backend
+      - broker:broker
+    networks:
+      - network
+    command: celery worker -A financial_tone.worker.financial_tone --loglevel=INFO --concurrency=2 --hostname=finbert-worker@%h --queues financial_tone -E --config=financial_tone.config
+
+  # client:
+  #       build: ./client
+  #       container_name: celery-client
+  #       environment:
+  #           - API_URL=http://api:7003
+  #       links:
+  #           - api:api
+  #       networks:
+  #           - network
+networks:
+  network: {}
+volumes:
+  db-data:

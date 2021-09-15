@@ -27,6 +27,9 @@ Check **docker-compose.yml** file
 
 ### Add Model data from https://huggingface.co/yiyanghkust/finbert-tone/tree/main to workers/model/fine-tone
 
+
+### Internet Connection is necessary
+
 [comment]: <> (# Application Page:)
 
 [comment]: <> (### Hosted at Docker)

@@ -1,0 +1,33 @@
+{
+  "sentenceSentiment": [
+    {
+      "label": "neutral",
+      "score": 0.9999545812606812,
+      "sentence": "the swiss federal council adopted the dispatch on the new frontier workers agreement between Switzerland and Italy."
+    },
+    {
+      "label": "positive",
+      "score": 0.9999980926513672,
+      "sentence": "The agreement significantly improves the current regulation on the taxation of frontier workers and contributes to maintaining the good bilateral relations between the two countries."
+    },
+    {
+      "label": "neutral",
+      "score": 0.9993869066238403,
+      "sentence": "With the new agreement, Switzerland retains 80% of the regular withholding tax on the income of frontier workers who start working in Switzerland for the first time."
+    },
+    {
+      "label": "neutral",
+      "score": 0.9999035596847534,
+      "sentence": "New frontier workers will also be taxed normally in Italy, whereby double taxation will be eliminated."
+    },
+    {
+      "label": "neutral",
+      "score": 0.9999897480010986,
+      "sentence": "“New” frontier workers are individuals who enter the labour market on or after the date on which the agreement enters into force."
+    }
+  ],
+  "paragraphSentiment": {
+    "label": "positive",
+    "score": 0.9998067919088385
+  }
+}

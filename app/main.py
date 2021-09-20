@@ -46,19 +46,19 @@ app = FastAPI()
 # API routes
 app.include_router(
     router=test.router,
-    tags=["example"]
+    tags=["financial-sentiment"]
 )
 
 db = SessionLocal()
-pipe_line = None
+pipe_line_fixed, pipe_line_all = None, None
 
 #
 @app.on_event("startup")
 async def startup_event():
     # redis =  aioredis.from_url("redis://localhost", encoding="utf8", decode_responses=True)
     # FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
-    global pipe_line
-    pipe_line = model_loader()
+    global pipe_line_fixed, pipe_line_all
+    pipe_line_fixed, pipe_line_all = model_loader()
     import nltk
     nltk.download('punkt')
 
